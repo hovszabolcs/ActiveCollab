@@ -1,0 +1,25 @@
+{% extends "layout.html.twig" %}
+{% block body %}
+    <div class="row">
+        <h2 class="text-center">Projects</h2>
+        <div class="card shadow center col-12 mt-3">
+            <div class="card-body">
+                <table class="table table-striped table-hover">
+                    <tr>
+                        <th>Name</th>
+                        <th>Last update</th>
+                        <th>Created</th>
+                    </tr>
+                    {% for project in projects %}
+                        <tr>
+                            <td><a href="/project/{{ project.id }}/tasks">{{ project.name }}</a></td>
+                            <td>{{ project.updatedAt }}</td>
+                            <td>{{ project.createdAt }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}

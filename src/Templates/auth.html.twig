@@ -1,0 +1,21 @@
+{% extends "layout.html.twig" %}
+{% block body %}
+    <div class="row justify-content-center align-items-center vh-100">
+        <div class="login-box card shadow center col-6">
+            <div class="card-body">
+                <h2 class="h3 mb-3 fw-normal text-center">Bejelentkezés</h2>
+                <form action="/login" method="post">
+                    <span class="text-danger">{% if (error('user')) %}{{ error('user') }}{% endif %}</span>
+                    <div class="form mb-3">
+                        <input type="text" class="form-control {% if (error('user')) %}alert alert-danger{% endif %}" id="user" placeholder="Felhasználónév" name="user" value="{{ old('user') }}" required>
+                    </div>
+                    <div class="form">
+                        <input type="password" class="form-control" id="password" name="password" placeholder="Jelszó" required>
+                    </div>
+                    <button class="w-100 btn btn-lg btn-primary mt-3" name="login" type="submit">Bejelentkezés</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}

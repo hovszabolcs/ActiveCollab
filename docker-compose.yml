@@ -1,0 +1,42 @@
+services:
+    nginx:
+        container_name: nginx
+        image: nginx:latest
+        ports:
+            - 8080:80
+        volumes:
+            - './docker/nginx/conf.d:/etc/nginx/conf.d'
+            - ./:/var/www/default
+
+        depends_on:
+            - php-fpm
+            
+        links:
+            - php-fpm
+
+    php-fpm:
+        container_name: php
+        build:
+            context: .
+            dockerfile: docker/dockerfiles/php.dockerfile
+        volumes:
+            - ./:/var/www/default
+            - ./docker/php/php.ini:/usr/local/etc/php/conf.d/custom.ini
+            # - /var/www/default/vendor
+
+    mysql:
+        image: mysql:5.7.42
+        container_name: mysql_container
+        ports:
+            - "3306:3306"
+        environment:
+          MYSQL_ROOT_PASSWORD: secret
+          MYSQL_DATABASE: test
+          MYSQL_USER: testuser
+          MYSQL_PASSWORD: secret
+
+    redis:
+        image: redis/redis-stack:latest
+        ports:
+            - "6379:6379"
+            - "8001:8001"

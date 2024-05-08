@@ -1,0 +1,19 @@
+{
+    "require": {
+        "php": ">=8.3",
+        "activecollab/activecollab-feather-sdk": "^3.0",
+        "twig/twig": "^3.0",
+        "predis/predis": "^2.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/",
+            "Core\\": "core/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Szabolcs Hovanecz"
+        }
+    ]
+}
