@@ -22,7 +22,8 @@ services:
         volumes:
             - ./:/var/www/default
             - ./docker/php/php.ini:/usr/local/etc/php/conf.d/custom.ini
-            # - /var/www/default/vendor
+            - ./docker/php/xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+            - ./tmp:/tmp
 
     mysql:
         image: mysql:5.7.42

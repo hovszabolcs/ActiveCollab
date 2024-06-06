@@ -1,5 +1,4 @@
 <?php
-
 use App\CustomRouter;
 use Core\Application;
 use Core\Configuration;
