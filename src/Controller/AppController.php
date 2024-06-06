@@ -44,5 +44,6 @@ abstract class AppController extends Controller
     protected function makeCacheHandlerInstance(ConfigurationInterface $config): CacheInterface {
         $redisUrl = $config->getEnv('REDIS_URL');
         return new RedisCache($redisUrl);
+        // return new FileCache();
     }
 }
