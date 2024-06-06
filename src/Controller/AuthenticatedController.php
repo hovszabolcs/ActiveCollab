@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Services\ActiveCollab\ActiveCollabCachedClient;
+use App\Services\ActiveCollab\ActiveCollabClientInterface;
 use App\Services\ActiveCollab\ActiveCollabClientService;
 use Core\ConfigurationInterface;
 use Core\HtmlView;
@@ -11,7 +13,7 @@ use Core\Route\RouteItemInfo;
 // You can extends this class for protect your controller from guests
 abstract class AuthenticatedController extends AppController
 {
-    protected readonly ActiveCollabClientService $client;
+    protected readonly ActiveCollabClientInterface $client;
 
     public function __construct(ConfigurationInterface $config, Request $request, RouteItemInfo $routeItemInfo)
     {
@@ -20,10 +22,14 @@ abstract class AuthenticatedController extends AppController
         if (!$this->authService->check()) {
             $view = HtmlView::Redirect('/login');
             $view->render();
-            // TODO: all applications should have one start and one exitpoint
+            // TODO: all applications should have one start and one exit point
             exit();
         }
-        $this->client = $this->authService->getClient();
+        $this->client = $this->getClient();
+    }
+
+    protected function getClient(): ?ActiveCollabClientInterface {
+        return new ActiveCollabCachedClient($this->authService->getClient(), $this->cache);
     }
 
 }

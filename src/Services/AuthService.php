@@ -3,7 +3,7 @@
 namespace App\Services;
 
 use App\Services\ActiveCollab\ActiveCollabAuthService;
-use App\Services\ActiveCollab\ActiveCollabClientService;
+use App\Services\ActiveCollab\ActiveCollabClientInterface;
 use Core\Session;
 
 class AuthService
@@ -13,7 +13,7 @@ class AuthService
         protected ActiveCollabAuthService $apiAuthService
     ) {}
 
-    public function login(string $name, string $password): ?ActiveCollabClientService {
+    public function login(string $name, string $password): ?ActiveCollabClientInterface {
         if ($this->session->has('client'))
             return $this->session->get('client');
 
@@ -32,7 +32,7 @@ class AuthService
         $this->session->delete('client');
     }
 
-    public function getClient(): ?ActiveCollabClientService {
+    public function getClient(): ?ActiveCollabClientInterface {
         return $this->session->get('client');
     }
 }

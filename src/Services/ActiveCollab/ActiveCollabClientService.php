@@ -4,10 +4,9 @@ namespace App\Services\ActiveCollab;
 
 use ActiveCollab\SDK\Client;
 use ActiveCollab\SDK\ClientInterface;
-use ActiveCollab\SDK\ResponseInterface;
 use ActiveCollab\SDK\TokenInterface;
 
-class ActiveCollabClientService
+class ActiveCollabClientService implements ActiveCollabClientInterface
 {
     protected ClientInterface $client;
 
