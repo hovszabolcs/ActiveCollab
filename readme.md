@@ -7,7 +7,13 @@
 
 - Rename .env.example to .env.
 
-The site available on http://localhost:8080
+- Generate CA and cert for ssl with /keys/genkeys.sh or generate cert only /keys/genwebcert.sh for SSL  
+
+
+The site available on https://localhost
+
+
+
 
 ## XDebug ##
 
