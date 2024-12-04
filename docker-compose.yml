@@ -4,6 +4,7 @@ services:
         image: nginx:latest
         ports:
             - 8080:80
+            - 443:443
         volumes:
             - './docker/nginx/conf.d:/etc/nginx/conf.d'
             - ./:/var/www/default
@@ -27,7 +28,7 @@ services:
 
     mysql:
         image: mysql:5.7.42
-        container_name: mysql_container
+        container_name: mysql
         ports:
             - "3306:3306"
         environment:
@@ -37,12 +38,14 @@ services:
           MYSQL_PASSWORD: secret
 
     redis:
+        container_name: redis
         image: redis/redis-stack:latest
         ports:
             - "6379:6379"
             - "8001:8001"
 
     phpmyadmin:
+        container_name: phpmyadmin
         image: phpmyadmin/phpmyadmin
         ports:
             - "8090:80"
@@ -51,3 +54,13 @@ services:
             MYSQL_ROOT_PASSWORD: rootpassword
         depends_on:
             - mysql
+
+    node:
+        image: node:22.0-alpine3.19
+        container_name: node
+        working_dir: /srv/app
+        ports:
+            - "8000:8000"
+        volumes:
+            - ./:/srv/app
+        tty: true
