@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Services\ActiveCollab\ActiveCollabCachedClient;
 use App\Services\ActiveCollab\ActiveCollabClientInterface;
-use App\Services\ActiveCollab\ActiveCollabClientService;
 use Core\ConfigurationInterface;
 use Core\HtmlView;
 use Core\Request;
@@ -19,17 +18,21 @@ abstract class AuthenticatedController extends AppController
     {
         parent::__construct($config, $request, $routeItemInfo);
 
-        if (!$this->authService->check()) {
-            $view = HtmlView::Redirect('/login');
-            $view->render();
-            // TODO: all applications should have one start and one exit point
-            exit();
-        }
+        $this->redirectUnauthenticated();
+
         $this->client = $this->getClient();
     }
 
     protected function getClient(): ?ActiveCollabClientInterface {
         return new ActiveCollabCachedClient($this->authService->getClient(), $this->cache);
+    }
+
+    protected function redirectUnauthenticated(): void {
+        if (!$this->authService->check()) {
+            $view = HtmlView::Redirect('/login');
+            $view->render();
+            exit();
+        }
     }
 
 }
