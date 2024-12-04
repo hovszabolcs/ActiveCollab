@@ -2,8 +2,8 @@
 
 - Install Docker with Docker Compose
 - Run commands below:
-  - ```docker-compose build```
-  - ```docker-compose up -d```
+  - ```docker compose build```
+  - ```docker compose up -d```
 
 - Rename .env.example to .env.
 
